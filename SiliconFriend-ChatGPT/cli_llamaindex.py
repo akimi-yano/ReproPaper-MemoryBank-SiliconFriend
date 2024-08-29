@@ -6,7 +6,7 @@ import copy
 import time, platform
 
 import signal,json
-# import gradio as gr
+import gradio as gr
 import nltk
 import torch
 from langchain.llms import OpenAIChat
@@ -49,10 +49,10 @@ api_path ='api_key_list.txt'
 #     return api_keys
 
 memory_dir = os.path.join(data_args.memory_basic_dir,data_args.memory_file)
-print("printing the memory_dir", memory_dir)
+# print("printing the memory_dir", memory_dir)
 if not os.path.exists(memory_dir):
     json.dump({},open(memory_dir,"w",encoding="utf-8"))
-print("the writing worked!", memory_dir)
+# print("the writing worked!", memory_dir)
 
 global memory 
 memory = json.load(open(memory_dir,"r",encoding="utf-8"))
