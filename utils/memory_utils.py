@@ -48,9 +48,12 @@ def enter_name_llamaindex(name, memory, data_args, update_memory_index=True):
         if not os.path.exists(memory_index_path) or update_memory_index:
             print(f'Initializing memory index {memory_index_path}...')
             build_memory_index(memory,data_args,name=name)
+        
         if os.path.exists(memory_index_path):
             user_memory_index = GPTSimpleVectorIndex.load_from_disk(memory_index_path)
             print(f'Successfully load memory index for user {name}!')
+        else:
+            print(f'Failed to load memory index for user {name}!')
             
         return f"Wellcome Back, {name}！",user_memory,user_memory_index
     else:

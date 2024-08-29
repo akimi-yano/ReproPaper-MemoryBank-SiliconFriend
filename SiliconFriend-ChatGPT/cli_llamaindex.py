@@ -179,8 +179,11 @@ def main():
         if input('Welcome back. Would you like to summarize your memory? If yes, please enter "yes"') == "yes":
             user_memory = summarize_memory_event_personality(data_args, memory, user_name)
     hello_msg,user_memory,user_memory_index = enter_name_llamaindex(user_name,memory,data_args)
-    print(hello_msg)
+    # the below code of hello_msg saludes the user again whether if the user is new or repeated user
+    print(hello_msg) 
     api_index = 0
+
+    # user comes to the below code after memory summary for the 2nd time user or no memory summary for the first time user
     print("Welcome to use SiliconFriend model，please enter your question to start conversation，enter \"clear\" to clear conversation ，enter \"stop\" to stop program")
     while True:
         query = input(f"\n{user_name}：")

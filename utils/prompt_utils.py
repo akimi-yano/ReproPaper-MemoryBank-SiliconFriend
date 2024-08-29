@@ -2,7 +2,8 @@
 boot_name_dict = {'en':'AI Companion','cn':'AI伴侣'}
 boot_actual_name_dict = {'en':'SiliconFriend','cn':'硅基朋友'}
 def output_prompt(history,user_name,boot_name):
-    prompt = f"我是你的AI伴侣{boot_name}，输入内容即可进行对话，clear 清空对话历史，stop 终止程序"
+    # prompt = f"我是你的AI伴侣{boot_name}，输入内容即可进行对话，clear 清空对话历史，stop 终止程序"
+    prompt = f"I am your AI companion {boot_name}. You can start a conversation by inputting content, clear clears the conversation history, and stop terminates the program."
     for dialog in history:
         query = dialog[0]
         response = dialog[1]

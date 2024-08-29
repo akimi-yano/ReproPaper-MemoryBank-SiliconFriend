@@ -112,6 +112,7 @@ def summarize_memory(memory_dir,name=None,language='cn'):
     memory = json.loads(open(memory_dir,'r',encoding='utf8').read())
     all_prompts,all_his_prompts, all_person_prompts = [],[],[]
     for k,v in memory.items():
+        # print("checking k and name", k, name)
         if name != None and k != name:
             continue
         user_name = k
@@ -125,21 +126,29 @@ def summarize_memory(memory_dir,name=None,language='cn'):
             memory[user_name]['personality'] = {}
         for date, content in history.items():
             # print(f'Updating memory for date {date}')
+
+            # This is a flag to check if the history summary was already created for that day - if so, it does not create new one today
             his_flag = False if (date in v['summary'].keys() and v['summary'][date]) else True
+            # This is a flag to check if the peronality summary was already careated for that day - if so, it does not create new one today
             person_flag = False if (date in v['personality'].keys() and v['personality'][date]) else True
             hisprompt = summarize_content_prompt(content,user_name,boot_name,language)
             person_prompt = summarize_person_prompt(content,user_name,boot_name,language)
             if his_flag:
                 his_summary = llm_client.generate_text_simple(prompt=hisprompt,prompt_num=gen_prompt_num,language=language)
                 memory[user_name]['summary'][date] = {'content':his_summary}
+                print("generated history summary", his_summary)
             if person_flag:
                 person_summary = llm_client.generate_text_simple(prompt=person_prompt,prompt_num=gen_prompt_num,language=language)
                 memory[user_name]['personality'][date] = person_summary
+                print("generated personality summary", person_summary)
         
+        # TODO: The overall summaries are generated every time - think if this is necessary
         overall_his_prompt = summarize_overall_prompt(list(memory[user_name]['summary'].items()),language=language)
         overall_person_prompt = summarize_overall_personality(list(memory[user_name]['personality'].items()),language=language)
         memory[user_name]['overall_history'] = llm_client.generate_text_simple(prompt=overall_his_prompt,prompt_num=gen_prompt_num,language=language)
+        print("generated overall history summary: ",  memory[user_name]['overall_history'] )
         memory[user_name]['overall_personality'] = llm_client.generate_text_simple(prompt=overall_person_prompt,prompt_num=gen_prompt_num,language=language)
+        print("generated overall personality summary", memory[user_name]['overall_personality'])
  
     with open(memory_dir,'w',encoding='utf8') as f:
         print(f'Sucessfully update memory for {name}')
