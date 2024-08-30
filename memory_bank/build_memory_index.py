@@ -61,7 +61,7 @@ def build_memory_index(all_user_memories,data_args,name=None):
             if user_name != name:
                 continue
         print(f'build index for user {user_name}')
-        print(f'here are the memories of the user {user_name} : {memories}')
+        # print(f'here are the memories of the user {user_name} : {memories}')
         cur_index = GPTSimpleVectorIndex.from_documents(memories,service_context=service_context)
         index_set[user_name] = cur_index
         os.makedirs(f'../memories/memory_index/llamaindex',exist_ok=True)

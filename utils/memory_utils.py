@@ -40,11 +40,16 @@ def enter_name(name, memory,local_memory_qa,data_args,update_memory_index=True):
         msg = f"欢迎新用户{name}！我会记住你的名字，下次见面就能叫你的名字啦！" if data_args.language == 'cn' else f'Welcome, new user {name}! I will remember your name, so next time we meet, I\'ll be able to call you by your name!'
         return msg,memory[name],memory,name,user_memory_index
 
+# update_memory_index arg seems to be always true for chatGPT version as no arg is passed in from cli_llamaindex.py
 def enter_name_llamaindex(name, memory, data_args, update_memory_index=True):
     user_memory_index = None
     if name in memory.keys():
         user_memory = memory[name]
-        memory_index_path = os.path.join(data_args.memory_basic_dir,f'memory_index/{name}_index.json')
+
+        # This was a bug for chatgpt version so I commented the code for now - I need to add llamaindex directory to fix it. 
+        # TODO: However, since this is a utility code, will check back if I need to change this again for chatGLM version or BELLE version
+        # memory_index_path = os.path.join(data_args.memory_basic_dir,f'memory_index/{name}_index.json')
+        memory_index_path = os.path.join(data_args.memory_basic_dir,f'memory_index/llamaindex/{name}_index.json')
         if not os.path.exists(memory_index_path) or update_memory_index:
             print(f'Initializing memory index {memory_index_path}...')
             build_memory_index(memory,data_args,name=name)
@@ -54,12 +59,13 @@ def enter_name_llamaindex(name, memory, data_args, update_memory_index=True):
             print(f'Successfully load memory index for user {name}!')
         else:
             print(f'Failed to load memory index for user {name}!')
+            # print("memory index path", memory_index_path)
             
         return f"Wellcome Back, {name}！",user_memory,user_memory_index
     else:
         memory[name] = {}
         memory[name].update({"name":name}) 
-        return f"Welcome new user{name}！I will remember your name and call you by your name in the next conversation",memory[name],user_memory_index
+        return f"Welcome new user {name}！I will remember your name and call you by your name in the next conversation",memory[name],user_memory_index
 
 
 def summarize_memory_event_personality(data_args, memory, user_name):

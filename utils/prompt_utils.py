@@ -70,6 +70,12 @@ def build_prompt_with_search_memory_llamaindex(history,text,user_memory,user_nam
         history_summary = "你和用户过去的回忆总结是：{overall}".format(overall=user_memory["overall_history"]) if data_args.language=='cn' else "The summary of your past memories with the user is: {overall}".format(overall=user_memory["overall_history"])
         related_memory_content = f"\n{str(related_memos).strip()}\n"
     else:
+        # TODO: check if the error persists due to not defining related_memory_content 
+        # ^ this could be because the gpt request is failing for overall_history as the free tier only has 3 RPM
+        # Waiting to hear back from open ai team. Test the flow again after that
+        # TODO: I prefere having the unform place to check the state instead of multiple different checks.
+        # also it is weird that this line of code ran when user inputs their name for the first time. that is not a prompt
+        # print("overall_history is not in user_memory, so related_memory_content is not defined", user_memory)
         history_summary = ''
     # mem_summary = [(k, v) for k, v in user_memory['summary'].items()]
     # memory_content += "最近的一段回忆是：日期{day}的对话内容为{recent}".format(day=mem_summary[-1][0],recent=mem_summary[-1][1])

@@ -108,6 +108,9 @@ def chatgpt_chat(prompt,system,history,gpt_config,api_index=0):
                 # openai.api_key = api_keys[api_index]
 
                 count+=1
+        # print("checking the response: ", response)
+        # print("checking the response['choices']: ", response['choices'])
+        # print("checking the response['choices'][0]: ", response['choices'][0])
         if response:
             response = response['choices'][0]['message']['content'] #[response['choices'][i]['text'] for i in range(len(response['choices']))]
         else:
@@ -173,10 +176,10 @@ def main():
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, prompt_helper=prompt_helper)
     history = []
     global stop_stream
-    print('Please Enter Your Name:')
+    print('Please Enter Your Name')
     user_name = input("\nUser Name：")
     if user_name in memory.keys():
-        if input('Welcome back. Would you like to summarize your memory? If yes, please enter "yes"') == "yes":
+        if input('Welcome back. Would you like to summarize your memory? If yes, please enter "yes" :') == "yes":
             user_memory = summarize_memory_event_personality(data_args, memory, user_name)
     hello_msg,user_memory,user_memory_index = enter_name_llamaindex(user_name,memory,data_args)
     # the below code of hello_msg saludes the user again whether if the user is new or repeated user
@@ -184,7 +187,7 @@ def main():
     api_index = 0
 
     # user comes to the below code after memory summary for the 2nd time user or no memory summary for the first time user
-    print("Welcome to use SiliconFriend model，please enter your question to start conversation，enter \"clear\" to clear conversation ，enter \"stop\" to stop program")
+    print("Welcome to use SiliconFriend model，please enter your question to start conversation，enter \"clear\" to clear conversation ，enter \"stop\" to stop program :")
     while True:
         query = input(f"\n{user_name}：")
         if query.strip() == "stop":
@@ -192,7 +195,7 @@ def main():
         if query.strip() == "clear":
             history = []
             os.system(clear_command)
-            print("Welcome to use SiliconFriend model，please enter your question to start conversation，enter \"clear\" to clear conversation ，enter \"stop\" to stop program")
+            print("Welcome to use SiliconFriend model，please enter your question to start conversation，enter \"clear\" to clear conversation ，enter \"stop\" to stop program :")
             continue
         count = 0
         history_state, history, msg = predict_new(text=query,history=history,top_p=0.95,temperature=1,max_length_tokens=1024,max_context_length_tokens=200,
@@ -207,7 +210,7 @@ def main():
             if count % 8 == 0:
                 os.system(clear_command)
                 print(output_prompt(history_state,user_name,boot_actual_name), flush=True)
-                print("this output_prompt also ran with history_state: ", history_state)
+                # print("this output_prompt also ran with history_state: ", history_state)
                 signal.signal(signal.SIGINT, signal_handler)
         os.system(clear_command)       
         print(output_prompt(history_state,user_name,boot_actual_name), flush=True)
