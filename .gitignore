@@ -3,3 +3,7 @@ SiliconFriend-ChatGPT/update_memory.json
 SiliconFriend-ChatGPT/launch.sh
 .DS_Store
 .venv
+SiliconFriend-ChatGLM-BELLE/adapter_model/
+SiliconFriend-ChatGLM-BELLE/launch_belle_cmd.sh
+SiliconFriend-ChatGLM-BELLE/launch_chatglm_app.sh
+SiliconFriend-ChatGLM-BELLE/launch_chatglm_cmd.sh
