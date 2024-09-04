@@ -27,7 +27,6 @@ class ModelArguments:
         metadata={"help": "Path to pretrained prefix embedding of ptuning"},
     )
     
-
     # prompt_column
     # train_file: str = field(default="/home/t-qiga/azurewanjun/SiliconGirlfriend/data/merge_data/only_mental_0426.json")
 

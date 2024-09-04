@@ -136,19 +136,19 @@ def summarize_memory(memory_dir,name=None,language='cn'):
             if his_flag:
                 his_summary = llm_client.generate_text_simple(prompt=hisprompt,prompt_num=gen_prompt_num,language=language)
                 memory[user_name]['summary'][date] = {'content':his_summary}
-                # print("generated history summary", his_summary)
+                print("generated history summary", his_summary)
             if person_flag:
                 person_summary = llm_client.generate_text_simple(prompt=person_prompt,prompt_num=gen_prompt_num,language=language)
                 memory[user_name]['personality'][date] = person_summary
-                # print("generated personality summary", person_summary)
+                print("generated personality summary", person_summary)
         
         # TODO: The overall summaries are generated every time - think if this is necessary if the user already jas one <- but the generation request could fail depending on api's state
         overall_his_prompt = summarize_overall_prompt(list(memory[user_name]['summary'].items()),language=language)
         overall_person_prompt = summarize_overall_personality(list(memory[user_name]['personality'].items()),language=language)
         memory[user_name]['overall_history'] = llm_client.generate_text_simple(prompt=overall_his_prompt,prompt_num=gen_prompt_num,language=language)
-        # print("generated overall history summary: ",  memory[user_name]['overall_history'] )
+        print("generated overall history summary: ",  memory[user_name]['overall_history'] )
         memory[user_name]['overall_personality'] = llm_client.generate_text_simple(prompt=overall_person_prompt,prompt_num=gen_prompt_num,language=language)
-        # print("generated overall personality summary", memory[user_name]['overall_personality'])
+        print("generated overall personality summary", memory[user_name]['overall_personality'])
  
     with open(memory_dir,'w',encoding='utf8') as f:
         print(f'Sucessfully update memory for {name}')
