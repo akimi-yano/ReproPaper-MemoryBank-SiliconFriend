@@ -2,8 +2,8 @@
 
 I have read the research paper and source code for MemoryBank: Enhancing Large Language Models with Long-Term Memory, and I have implemented the paper's concepts. I am sharing my findings in this repository.
 
-The research paper can be found here: https://arxiv.org/pdf/2305.10250.
-The research's GitHub page can be found here: https://github.com/zhongwanjun/MemoryBank-SiliconFriend.
+- The research paper can be found here: https://arxiv.org/pdf/2305.10250.
+- The research's GitHub page can be found here: https://github.com/zhongwanjun/MemoryBank-SiliconFriend.
 
 ## Summary of the Research Paper:
 
@@ -13,7 +13,7 @@ This research paper introduces and demonstrates the Memory Retrieval Mechanism, 
 
 I have implemented the Memory Retrieval Mechanism discussed in the paper in a Jupyter Notebook:
 
-The link to my Jupyter Notebook can be found here: https://github.com/akimi-yano/ReproPaper-MemoryBank-SiliconFriend/blob/main/repropaper_memorybank.ipynb
+- The link to my Jupyter Notebook can be found here: https://github.com/akimi-yano/ReproPaper-MemoryBank-SiliconFriend/blob/main/repropaper_memorybank.ipynb
 
 ## What I Learned through this Experience:
 
