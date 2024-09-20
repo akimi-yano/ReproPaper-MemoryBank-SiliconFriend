@@ -8,3 +8,5 @@ SiliconFriend-ChatGLM-BELLE/launch_belle_cmd.sh
 SiliconFriend-ChatGLM-BELLE/launch_chatglm_app.sh
 SiliconFriend-ChatGLM-BELLE/launch_chatglm_cmd.sh
 .ipynb_checkpoints
+memory_index
+memory.json
